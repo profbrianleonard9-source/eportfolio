@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My ePortfolio – Instructional Design</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f7fa;color:#222}
+  /* NAV */
+  nav{background:#1a2e52;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:10px}
+  .nav-brand{color:#fff;font-size:16px;font-weight:600;letter-spacing:.3px}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap}
+  .nav-link{color:rgba(255,255,255,.75);font-size:13px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:all .15s;border:none;background:transparent}
+  .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.15);color:#fff}
+  /* PAGES */
+  .page{display:none}
+  .page.active{display:block}
+  /* HERO */
+  .hero{background:#1a2e52;padding:72px 40px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:rgba(212,175,55,.1)}
+  .hero::after{content:'';position:absolute;bottom:-50px;left:-30px;width:180px;height:180px;border-radius:50%;background:rgba(212,175,55,.07)}
+  .hero-avatar{width:80px;height:80px;border-radius:50%;background:#d4af37;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#1a2e52;margin:0 auto 20px}
+  .hero h1{color:#fff;font-size:30px;font-weight:700;margin-bottom:6px}
+  .hero-tag{color:#d4af37;font-size:14px;letter-spacing:.5px;margin-bottom:10px}
+  .hero-tagline{color:rgba(255,255,255,.85);font-size:13px;margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6}
+  .hero-desc{color:rgba(255,255,255,.7);font-size:13px;max-width:540px;margin:0 auto 28px;line-height:1.7}
+  .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn-gold{background:#d4af37;color:#1a2e52;font-size:13px;font-weight:600;padding:10px 22px;border-radius:7px;cursor:pointer;border:none;transition:opacity .15s}
+  .btn-gold:hover{opacity:.88}
+  .btn-outline{background:transparent;color:#fff;font-size:13px;font-weight:500;padding:10px 22px;border-radius:7px;cursor:pointer;border:1.5px solid rgba(255,255,255,.4);transition:all .15s}
+  .btn-outline:hover{border-color:#fff}
+  /* SECTIONS */
+  .section{padding:40px 40px;max-width:900px;margin:0 auto}
+  .section-title{font-size:22px;font-weight:700;color:#1a2e52;margin-bottom:4px}
+  .section-sub{font-size:13px;color:#666;margin-bottom:24px}
+  .divider{height:1px;background:#e8eaf0;margin:0}
+  /* CARDS GRID */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+  .card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;padding:20px;cursor:pointer;transition:all .15s;text-decoration:none;display:block}
+  .card:hover{border-color:#1a2e52;transform:translateY(-2px);box-shadow:0 4px 16px rgba(26,46,82,.08)}
+  .card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:20px}
+  .icon-blue{background:#e6f1fb}
+  .icon-gold{background:#faeeda}
+  .icon-teal{background:#e1f5ee}
+  .icon-purple{background:#eeedfe}
+  .card-title{font-size:14px;font-weight:600;color:#1a2e52;margin-bottom:5px}
+  .card-desc{font-size:12px;color:#666;line-height:1.5}
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:100px 1fr;gap:24px;align-items:start}
+  .avatar-lg{width:88px;height:88px;border-radius:50%;background:#1a2e52;display:flex;align-items:center;justify-content:center;color:#d4af37;font-size:26px;font-weight:700}
+  .about-name{font-size:18px;font-weight:700;color:#1a2e52;margin-bottom:3px}
+  .about-role{font-size:13px;color:#888;margin-bottom:12px}
+  .about-bio{font-size:13px;color:#444;line-height:1.7}
+  .vision-box{background:#f9f6ee;border-left:4px solid #d4af37;border-radius:0 10px 10px 0;padding:16px 20px;margin-top:24px}
+  .vision-label{font-size:10px;color:#b8942a;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px}
+  .vision-text{font-size:13px;color:#555;line-height:1.7;font-style:italic}
+  /* PROJECTS */
+  .project-card{background:#fff;border:1px solid #e8eaf0;border-radius:12px;padding:20px;margin-bottom:14px;transition:border-color .15s}
+  .project-card:hover{border-color:#1a2e52}
+  .project-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .project-title{font-size:14px;font-weight:700;color:#1a2e52}
+  .badge{background:#e6f1fb;color:#185fa5;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px}
+  .badge-gold{background:#faeeda;color:#854f0b}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .tag{background:#f0f4ff;color:#3a5abd;font-size:10px;padding:3px 9px;border-radius:20px}
+  .project-annotation{font-size:12px;color:#555;line-height:1.7}
+  .project-coming{border-style:dashed;opacity:.55}
+  .section-intro{background:#f5f7fb;border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#444;line-height:1.6}
+  /* REFLECTIONS */
+  .reflection-entry{border-left:3px solid #d4af37;padding:14px 18px;margin-bottom:14px;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid #e8eaf0;border-right:1px solid #e8eaf0;border-bottom:1px solid #e8eaf0}
+  .ref-phase{font-size:10px;color:#b8942a;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px}
+  .ref-title{font-size:14px;font-weight:600;color:#1a2e52;margin-bottom:8px}
+  .ref-text{font-size:12px;color:#555;line-height:1.7}
+  .reflection-coming{opacity:.45;border-left-color:#ccc}
+  /* CONTACT */
+  .contact-center{text-align:center;padding:50px 20px}
+  .contact-icon{width:64px;height:64px;border-radius:50%;background:#e6f1fb;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:28px}
+  .contact-title{font-size:22px;font-weight:700;color:#1a2e52;margin-bottom:8px}
+  .contact-desc{font-size:13px;color:#666;max-width:340px;margin:0 auto 24px;line-height:1.6}
+  .contact-items{display:flex;flex-direction:column;gap:12px;align-items:center}
+  .contact-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#444;background:#fff;border:1px solid #e8eaf0;border-radius:8px;padding:10px 20px;min-width:260px}
+  .contact-dot{width:8px;height:8px;border-radius:50%;background:#d4af37;flex-shrink:0}
+  /* FOOTER */
+  footer{background:#1a2e52;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:0}
+  .footer-text{color:rgba(255,255,255,.45);font-size:11px}
+  .footer-link{color:#d4af37;font-size:11px;cursor:pointer;background:none;border:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">My ePortfolio</span>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="show('home',this)">Home</button>
+    <button class="nav-link" onclick="show('about',this)">About Me</button>
+    <button class="nav-link" onclick="show('projects',this)">My Projects</button>
+    <button class="nav-link" onclick="show('reflections',this)">Reflections</button>
+    <button class="nav-link" onclick="show('contact',this)">Contact</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-avatar">YN</div>
+    <h1>Your Name Here</h1>
+    <div class="hero-tag">Instructional Designer · Evaluator · Lifelong Learner</div>
+    <div class="hero-tagline">Graduate student in instructional design, specializing in evaluation, assessment, and data-driven learning design.</div>
+    <div class="hero-desc">Welcome to my professional ePortfolio — a curated collection of work, reflection, and growth built throughout my graduate program. Here you will find evidence of my developing competence as an instructional designer and evaluator.</div>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="show('projects',document.querySelectorAll('.nav-link')[2])">View My Work</button>
+      <button class="btn-outline" onclick="show('about',document.querySelectorAll('.nav-link')[1])">About Me</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Explore by section</div>
+    <div class="section-sub">Navigate to any area of the portfolio</div>
+    <div class="cards">
+      <div class="card" onclick="show('about',document.querySelectorAll('.nav-link')[1])">
+        <div class="card-icon icon-purple">👤</div>
+        <div class="card-title">About Me</div>
+        <div class="card-desc">Professional background, credentials, and vision statement</div>
+      </div>
+      <div class="card" onclick="show('projects',document.querySelectorAll('.nav-link')[2])">
+        <div class="card-icon icon-blue">📋</div>
+        <div class="card-title">My Projects</div>
+        <div class="card-desc">Course deliverables in assessment and evaluation</div>
+      </div>
+      <div class="card" onclick="show('reflections',document.querySelectorAll('.nav-link')[3])">
+        <div class="card-icon icon-teal">📝</div>
+        <div class="card-title">Reflections</div>
+        <div class="card-desc">Metacognitive reflections across each project phase</div>
+      </div>
+      <div class="card" onclick="show('contact',document.querySelectorAll('.nav-link')[4])">
+        <div class="card-icon icon-gold">✉️</div>
+        <div class="card-title">Contact</div>
+        <div class="card-desc">Get in touch or connect professionally</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-text">© 2025 · Instructional Design Program</span>
+    <button class="footer-link" onclick="show('contact',document.querySelectorAll('.nav-link')[4])">Contact</button>
+  </footer>
+</div>
+
+<!-- ABOUT ME -->
+<div id="about" class="page">
+  <div class="section">
+    <div class="section-title">About Me</div>
+    <div class="section-sub">Professional background and vision</div>
+    <div class="about-grid">
+      <div class="avatar-lg">YN</div>
+      <div>
+        <div class="about-name">Your Name Here</div>
+        <div class="about-role">Graduate Student · Instructional Design Program</div>
+        <div class="about-bio">I am a graduate student specializing in evaluation, assessment, and data-driven learning design. My work sits at the intersection of evidence-based practice and human-centered design, with a commitment to creating learning experiences that are both rigorous and accessible to diverse learners.<br><br>My academic background spans curriculum development, educational technology, and learning theory. I am passionate about designing assessment systems that genuinely serve learners — not just measure them — and about using data thoughtfully to inform instructional decisions rather than reduce learners to numbers.</div>
+      </div>
+    </div>
+    <div class="vision-box">
+      <div class="vision-label">My Vision Statement</div>
+      <div class="vision-text">"I believe that thoughtful assessment design is at the heart of meaningful learning. My goal is to develop as a practitioner who evaluates not just outcomes, but the quality of learning experiences themselves — and uses that insight to design better ones. I am committed to building a professional practice grounded in reflection, evidence, and a deep respect for the learners I serve."</div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-text">© 2025 · Instructional Design Program</span>
+    <button class="footer-link" onclick="show('contact',document.querySelectorAll('.nav-link')[4])">Contact</button>
+  </footer>
+</div>
+
+<!-- MY PROJECTS -->
+<div id="projects" class="page">
+  <div class="section">
+    <div class="section-title">My Projects</div>
+    <div class="section-sub">Deliverables developed this semester in evaluation, assessment, and learning design</div>
+    <div class="section-intro">Here you will find the projects and deliverables I developed this semester. Each entry includes a brief annotation explaining the project's purpose and what competency it demonstrates.</div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-title">Application Analysis</div>
+        <span class="badge">Phase 1</span>
+      </div>
+      <div class="tags">
+        <span class="tag">Platform Evaluation</span>
+        <span class="tag">ePortfolio Design</span>
+        <span class="tag">Decision Making</span>
+      </div>
+      <div class="project-annotation">A systematic comparative analysis of ePortfolio platforms — Google Sites versus Wix — evaluated against four criteria: ease of use, customization, cost, and integration capability. This project demonstrates my ability to make evidence-based design decisions grounded in audience needs and project constraints, and situates those decisions within the broader literature on ePortfolios as assessment tools.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-title">Sitemap & Storyboard</div>
+        <span class="badge">Phase 2</span>
+      </div>
+      <div class="tags">
+        <span class="tag">Information Architecture</span>
+        <span class="tag">Visual Design</span>
+        <span class="tag">User Experience</span>
+      </div>
+      <div class="project-annotation">A structured planning document presenting the hierarchical sitemap and five-page storyboard for this ePortfolio. The sitemap organizes content thematically by competency domain rather than chronologically, reflecting an audience-centered design logic. Storyboard mock-ups apply Williams and Tollett's alignment, repetition, and contrast principles to create a consistent, professional visual identity.</div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-title">Develop & Iterate: Usability Testing Report</div>
+        <span class="badge badge-gold">Phase 3</span>
+      </div>
+      <div class="tags">
+        <span class="tag">Usability Testing</span>
+        <span class="tag">Iterative Design</span>
+        <span class="tag">Formative Assessment</span>
+      </div>
+      <div class="project-annotation">A usability testing report documenting think-aloud sessions with two participants — a course colleague and an HR professional — conducted to evaluate the site's navigability, clarity, and communication of purpose. Findings informed three immediate design revisions and connected usability testing to the formative assessment principles central to this course.</div>
+    </div>
+
+    <div class="project-card project-coming">
+      <div class="project-header">
+        <div class="project-title">Future Projects</div>
+        <span class="badge">Coming Soon</span>
+      </div>
+      <div class="project-annotation">Additional course deliverables will appear here as the semester progresses.</div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-text">© 2025 · Instructional Design Program</span>
+    <button class="footer-link" onclick="show('contact',document.querySelectorAll('.nav-link')[4])">Contact</button>
+  </footer>
+</div>
+
+<!-- REFLECTIONS -->
+<div id="reflections" class="page">
+  <div class="section">
+    <div class="section-title">Reflections</div>
+    <div class="section-sub">Metacognitive thread across the semester</div>
+    <div class="section-intro">This section runs alongside my project work as a record of my thinking, assumptions, and growth. The portfolios I found most compelling during my exploration were not the most polished — they were the most reflective. That is what I am aiming for here.</div>
+
+    <div class="reflection-entry">
+      <div class="ref-phase">Phase 1</div>
+      <div class="ref-title">Exploration Reflection — Application Analysis</div>
+      <div class="ref-text">This phase shifted my understanding of ePortfolios from mere digital archives to purposeful, reflective assessment tools. Before engaging with the literature, I understood an ePortfolio loosely as a digital folder where students store completed work. The most significant insight was that reflection — not accumulation — is the engine of portfolio-based learning. The portfolios I found most compelling were not those with the most elaborate designs, but those where the designer's voice, judgment, and growth were audible in every annotation and framing choice. That reorientation changes what I will prioritize as I build: less time curating polished deliverables, more time writing honest, analytical reflections that reveal my thinking process.</div>
+    </div>
+
+    <div class="reflection-entry">
+      <div class="ref-phase">Phase 2</div>
+      <div class="ref-title">Planning Reflection — Sitemap & Storyboard</div>
+      <div class="ref-text">Creating the sitemap and storyboard revealed that I default to content-first thinking rather than structure-first thinking. The shift from content inventory to user journey was the most important conceptual reframe this phase produced — and one I doubt I would have arrived at if I had simply opened Google Sites and started building pages. I now think of this portfolio not as a showcase but as a structured argument: an artifact that makes a claim about competency and supports that claim with evidence, reflection, and intentional design.</div>
+    </div>
+
+    <div class="reflection-entry">
+      <div class="ref-phase">Phase 3</div>
+      <div class="ref-title">Development Reflection — Usability Testing</div>
+      <div class="ref-text">The usability testing process revealed a gap I could not have discovered alone: the distance between the designer's fluency and the visitor's first encounter. Watching a participant pause on the word "Assessment" in my navigation and say "I'm not sure what that means here" was genuinely illuminating. This experience connected directly to formative assessment — gathering evidence mid-process to guide improvement rather than rendering a final judgment. It has shifted my understanding of user experience from a design concern to an assessment concern.</div>
+    </div>
+
+    <div class="reflection-entry reflection-coming">
+      <div class="ref-phase">Phase 4</div>
+      <div class="ref-title">Coming Soon</div>
+      <div class="ref-text">Reflection will be added as the semester continues.</div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-text">© 2025 · Instructional Design Program</span>
+    <button class="footer-link" onclick="show('contact',document.querySelectorAll('.nav-link')[4])">Contact</button>
+  </footer>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+  <div class="section">
+    <div class="contact-center">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-title">Get in Touch</div>
+      <div class="contact-desc">I welcome collaboration, professional connections, and conversations about instructional design and assessment. Feel free to reach out.</div>
+      <div class="contact-items">
+        <div class="contact-item"><div class="contact-dot"></div>yourname@university.edu</div>
+        <div class="contact-item"><div class="contact-dot"></div>linkedin.com/in/yourname</div>
+        <div class="contact-item"><div class="contact-dot"></div>Instructional Design Program · 2025</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-text">© 2025 · Instructional Design Program</span>
+    <button class="footer-link" onclick="show('contact',document.querySelectorAll('.nav-link')[4])">Contact</button>
+  </footer>
+</div>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
